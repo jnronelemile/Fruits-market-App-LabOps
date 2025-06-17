@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  # Service Backend (Node.js API)
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - DB_HOST=db
+      - DB_USER=myuser
+      - DB_PASS=mypassword
+      - DB_NAME=leakymarketdb
+      - JWT_SECRET=this_is_a_super_secret_key_for_dev
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/app # Mount for development, remove for production
+    networks:
+      - app-network
+
+  # Service Frontend (Vue.js served by Nginx)
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  # Service Database (PostgreSQL)
+  db:
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypassword
+      - POSTGRES_DB=leakymarketdb
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432" # Expose DB port to host for debugging if needed
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
