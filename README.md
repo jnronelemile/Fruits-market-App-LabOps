@@ -20,7 +20,7 @@ Le projet est organisé en trois services principaux, chacun dans son propre ré
 ## Structure du dossier
 
 ``` markdown
-leaky-market/
+fruit-market-app-LabOps/
 ├── backend/
 │   ├── src/
 │   │   ├── controllers/
@@ -86,7 +86,7 @@ Le fichier `docker-compose.yml` à la racine orchestre le lancement et la mise e
 ### Lancement de l'application
 
 1. Clonez ce dépôt sur votre machine locale
-2. Ouvrez un terminal et naviguez jusqu'à la racine du projet (`leaky-market/`)
+2. Ouvrez un terminal et naviguez jusqu'à la racine du projet (`fruit-market-app-LabOps/`)
 3. Exécutez la commande suivante pour construire les images et démarrer les conteneurs :
 
 ```bash
