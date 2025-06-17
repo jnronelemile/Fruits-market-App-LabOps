@@ -17,7 +17,7 @@ Le projet est organisé en trois services principaux, chacun dans son propre ré
 - `backend/`: Contient l'API RESTful Node.js/Express, ses modèles, contrôleurs et son propre Dockerfile
 - `db/`: Contient le script d'initialisation init.sql pour la base de données PostgreSQL
 
-# Structure du dossier 
+## Structure du dossier
 
 ``` markdown
 leaky-market/
@@ -88,12 +88,15 @@ Le fichier `docker-compose.yml` à la racine orchestre le lancement et la mise e
 1. Clonez ce dépôt sur votre machine locale
 2. Ouvrez un terminal et naviguez jusqu'à la racine du projet (`leaky-market/`)
 3. Exécutez la commande suivante pour construire les images et démarrer les conteneurs :
+
 ```bash
 docker-compose up --build
 ```
+
 L'option `--build` force la reconstruction des images si des changements ont été faits dans les Dockerfile ou le code source.
 
 4. Une fois les services lancés :
+
    - L'application web (Frontend) est accessible à l'adresse : http://localhost:8080
    - L'API (Backend) est accessible à l'adresse : http://localhost:3000
 
@@ -115,18 +118,21 @@ Le backend requiert les variables d'environnement suivantes. Elles sont actuelle
 ### Description des Services
 
 #### Service `db`
+
 - **Image**: `postgres:14-alpine`
 - **Rôle**: Service de base de données
 - **Persistance**: Les données sont stockées dans un volume Docker nommé `postgres_data` pour survivre aux redémarrages des conteneurs
 - **Initialisation**: Le script `db/init.sql` est exécuté au premier démarrage pour créer le schéma et insérer des données de test
 
 #### Service `backend`
+
 - **Build**: Construit à partir du `backend/Dockerfile`
 - **Rôle**: Fournit l'API RESTful pour gérer les utilisateurs, produits et commandes
 - **Dépendances**: Dépend du service `db`. Ne démarrera pas tant que la base de données n'est pas prête
 - **Exposition**: Le port 3000 du conteneur est mappé sur le port 3000 de l'hôte
 
 #### Service `frontend`
+
 - **Build**: Utilise un Dockerfile multi-étapes. Le premier étage construit les assets statiques avec Node.js, et le second les sert avec un serveur Nginx ultra-léger
 - **Rôle**: Sert l'interface utilisateur (Single Page Application Vue.js)
 - **Configuration Nginx**: Le fichier `frontend/nginx.conf` est configuré pour servir l'application et gérer correctement le routing côté client (en redirigeant toutes les routes non-statiques vers index.html)
