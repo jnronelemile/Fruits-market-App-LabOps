@@ -11,7 +11,7 @@ import Navbar from './components/Navbar.vue'
       <RouterView />
     </main>
     <footer class="footer">
-      <p>&copy; 2024 Le Marché Frais. Votre dose quotidienne de vitamines.</p>
+      <p>&copy; 2025 Le Marché Frais. Votre dose quotidienne de vitamines.</p>
     </footer>
   </div>
 </template>
