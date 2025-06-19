@@ -11,11 +11,11 @@ services:
       - DB_USER=myuser
       - DB_PASS=mypassword
       - DB_NAME=leakymarketdb
-      - JWT_SECRET=this_is_a_super_secret_key_for_dev
+      - JWT_SECRET=this_is_a_super_secret_key_for_dev # for dev
     depends_on:
       - db
     volumes:
-      - ./backend:/app # Mount for development, remove for production
+      - ./backend:/app # Mount for development
     networks:
       - app-network
 
@@ -35,12 +35,12 @@ services:
     environment:
       - POSTGRES_USER=myuser
       - POSTGRES_PASSWORD=mypassword
-      - POSTGRES_DB=leakymarketdb
+      - POSTGRES_DB=fruitsmarketdb
     volumes:
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5432:5432" # Expose DB port to host for debugging if needed
+      - "5432:5432" 
     networks:
       - app-network
 
